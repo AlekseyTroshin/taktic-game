@@ -9,7 +9,6 @@ public class Grid : MonoBehaviour
 
     private void Start()
     {
-
         for (int i = 0; i < _height; i++)
         {
             for (int j = 0; j < _width; j++)
@@ -22,7 +21,9 @@ public class Grid : MonoBehaviour
                 );    
             }
         }
+        
+        
+        transform.position = new Vector3(transform.position.x, transform.position.y, 1);
     }
-    
 
 }
