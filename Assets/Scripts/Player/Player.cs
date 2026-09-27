@@ -3,7 +3,13 @@ using UnityEngine;
 public class Player : MonoBehaviour
 {
 
-    private Vector2 _cellPosition;  
+    [SerializeField] private Vector2 _cellPosition;
+
+	public Vector2 CellPosition
+	{
+		get { return _cellPosition; }
+		set { _cellPosition = value; }
+	}
 
 	public void Initialize(PlayerData data)
 	{
@@ -27,13 +33,11 @@ public class Player : MonoBehaviour
 
 	public void ShowBorder()
 	{
-		Debug.Log("One");
 		transform.Find("Border").gameObject.SetActive(true);
 	}
 
 	public void HideBorder()
 	{
-		Debug.Log("Two");
 		transform.Find("Border").gameObject.SetActive(false);
 	}
 

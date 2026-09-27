@@ -5,21 +5,32 @@ public class SelectionManager : MonoBehaviour
 
     private Player _selectedPlayer;
 
+    public Player SelectedPlayer
+    {
+        get { return _selectedPlayer; }
+        private set { _selectedPlayer = value; }
+    }
+
     public void SetPlayer(Player player)
     {
           
-        if (_selectedPlayer != null && !object.ReferenceEquals(_selectedPlayer, player))
+        if (SelectedPlayer != null && object.ReferenceEquals(SelectedPlayer, player))
         {
-            _selectedPlayer.HideBorder();
-            player.ShowBorder();
+            SelectedPlayer.HideBorder();
+            SelectedPlayer = null;
+            player = null;
         }
-
-        if (_selectedPlayer == null)
+        else if (SelectedPlayer == null)
         {
             player.ShowBorder();
+            SelectedPlayer = player;
         }
-
-        _selectedPlayer = player;
+        else
+        {
+            SelectedPlayer.HideBorder();
+            player.ShowBorder();
+            SelectedPlayer = player;
+        }
         
     }
 

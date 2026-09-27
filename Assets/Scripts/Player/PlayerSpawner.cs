@@ -11,9 +11,9 @@ public class PlayerSpawner : MonoBehaviour
     private void Start()
     {
         _playersData = new List<PlayerData>();
-        _playersData.Add(new PlayerData(new Vector2(3, -1), ColorPlayer.Red));
-        _playersData.Add(new PlayerData(new Vector2(2, -2), ColorPlayer.Blue));
-        _playersData.Add(new PlayerData(new Vector2(0, -3), ColorPlayer.Green));
+        _playersData.Add(new PlayerData(new Vector2(3, 1), ColorPlayer.Red));
+        _playersData.Add(new PlayerData(new Vector2(2, 2), ColorPlayer.Blue));
+        _playersData.Add(new PlayerData(new Vector2(0, 3), ColorPlayer.Green));
 
 
         foreach(PlayerData pd in _playersData)

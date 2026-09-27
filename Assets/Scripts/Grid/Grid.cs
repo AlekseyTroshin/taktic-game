@@ -9,16 +9,18 @@ public class Grid : MonoBehaviour
 
     private void Start()
     {
-        for (int i = 0; i < _height; i++)
+        for (int row = 0; row < _height; row++)
         {
-            for (int j = 0; j < _width; j++)
+            for (int col = 0; col < _width; col++)
             {
-                Instantiate(
+                GameObject cell = Instantiate(
                     _cellPrefab,
-                    new Vector3(j, -i, 0),
+                    new Vector3(col, row, 0),
                     Quaternion.identity,
                     transform
-                );    
+                );
+
+                cell.GetComponent<Cell>().CellPosition = new Vector2(col, row);
             }
         }
         
