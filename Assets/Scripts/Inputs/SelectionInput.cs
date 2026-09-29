@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class SelectionInput : MonoBehaviour
 {
-
+    
     private Cell _selectedCell;
     private SelectionManager _selectionManager;
     private MovementManager _movementManager;
