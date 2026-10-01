@@ -18,7 +18,6 @@ public class SelectionManager : MonoBehaviour
         {
             SelectedPlayer.HideBorder();
             SelectedPlayer = null;
-            player = null;
         }
         else if (SelectedPlayer == null)
         {
@@ -31,7 +30,7 @@ public class SelectionManager : MonoBehaviour
             player.ShowBorder();
             SelectedPlayer = player;
         }
-        
+
     }
 
 }
