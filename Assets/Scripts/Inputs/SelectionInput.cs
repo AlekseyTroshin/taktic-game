@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class SelectionInput : MonoBehaviour
 {
+    [SerializeField] private int countMove = 0;
     
     private Cell _selectedCell;
     private SelectionManager _selectionManager;
@@ -40,25 +41,24 @@ public class SelectionInput : MonoBehaviour
                     Vector2 playerPosition = _selectionManager.SelectedPlayer.CellPosition;
                     
                     Vector2 cellPosition = _selectedCell.CellPosition;
-
-                    if(_movementManager.CanMove(playerPosition, cellPosition))
+                    countMove++;
+                    if(_movementManager.CanMove(playerPosition, cellPosition) || countMove <= 3)
                     {
+                        
                         MoveAction ma = new MoveAction(
                             _selectionManager.SelectedPlayer,
                             _selectedCell.CellPosition
                         );
 
                         _actionManager.SetMoveAction(ma);
-
-                        // _movementManager.Move(
-                        //     _selectionManager.SelectedPlayer, 
-                        //     _selectedCell.CellPosition
-                        // );
+                        
                     }
                     else
                     {
-                        Debug.Log("Can't move");
-                        _actionManager.Show();
+                        // Debug.Log("Can't move");
+                        // _actionManager.Show();
+                        countMove = 0;
+                        _actionManager.Move(); // @@@ удалить пока для тестов 
                     }
 
                     return;
