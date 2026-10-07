@@ -4,44 +4,42 @@ using NUnit.Framework.Internal;
 
 public class ActionQueue
 {
-	public Queue<MoveAction> _moveAction = new Queue<MoveAction>();
+	public Queue<ICommand> _moveCommand = new Queue<ICommand>();
 
-	public Queue<MoveAction> MoveActions
+	public Queue<ICommand> MoveCommands
 	{
-		get { return _moveAction; }	
+		get { return _moveCommand; }	
 	}
 
-	public void SetMoveAction(MoveAction ma)
+	public void SetMoveCommand(ICommand command)
 	{
-		_moveAction.Enqueue(ma);
-	}
-
-	public MoveAction GetMoveAction()
-	{
-		if (_moveAction != null && _moveAction.Count > 0)
-		{
-			return _moveAction.Dequeue();
-		}
-
-		return null;
+		_moveCommand.Enqueue(command);
 	}
 
 	public bool Empty()
 	{
-		if (_moveAction.Count > 0) return false;
+		if (CanMoveCommand()) return false;
 
 		return true;
 	}
 
-	public MoveAction Peek()
+	public ICommand Peek()
 	{
-		return _moveAction.Peek();
-	}
-
-	public MoveAction Dequeue()
-	{
-		if (_moveAction.Count > 0) return _moveAction.Dequeue();
+		if (CanMoveCommand()) return _moveCommand.Peek();
 
 		return null;
 	}
+
+	public ICommand Dequeue()
+	{
+		if (CanMoveCommand()) return _moveCommand.Dequeue();
+
+		return null;
+	}
+
+	private bool CanMoveCommand()
+	{
+		return (_moveCommand != null && _moveCommand.Count > 0);
+	}
+
 }

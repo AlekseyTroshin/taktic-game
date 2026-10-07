@@ -21,30 +21,22 @@ public class ActionManager : MonoBehaviour
 
 	public void Move()
 	{
-
 		if (_actionQueue.Empty()) return;
 
 		StartCoroutine(MoveActionQueueCoroutine());
 	}
+
 	private IEnumerator MoveActionQueueCoroutine()
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			MoveAction ma = _actionQueue.GetMoveAction();
+			MoveAction ma = _actionQueue.Peek();
 			_movementManager.Move(
 				ma.Player, 
 				ma.TargetCellPosition
 			);
+			_actionQueue.DeQueue();
 			yield return new WaitForSeconds(0.3f);
-		}
-	}
-
-	public void Show()
-	{
-		for (int i = 0; i < 3; i++)
-		{
-			var z = _actionQueue.GetMoveAction();
-			Debug.Log(z.Player.CellPosition + " --- " + z.TargetCellPosition);
 		}
 	}
 
