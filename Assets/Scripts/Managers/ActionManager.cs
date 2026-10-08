@@ -4,38 +4,32 @@ using UnityEngine;
 public class ActionManager : MonoBehaviour
 {
 
-	private ActionQueue _actionQueue;
-	private MovementManager _movementManager;
+	private CommandQueue _commandQueue;
 
 	private void Start()
 	{
-		_actionQueue = new ActionQueue();
-		_movementManager = FindFirstObjectByType<MovementManager>();
+		_commandQueue = new CommandQueue();
 	}
 
-	public void SetMoveAction(MoveAction ma)
+	public void SetCommand(ICommand ma)
 	{
-		Debug.Log("---" + ma.Player.CellPosition + " --- " + ma.TargetCellPosition);
-		_actionQueue.SetMoveAction(ma);
+		_commandQueue.SetCommand(ma);
 	}
 
 	public void Move()
 	{
-		if (_actionQueue.Empty()) return;
+		if (_commandQueue.Empty()) return;
 
-		StartCoroutine(MoveActionQueueCoroutine());
+		StartCoroutine(MoveCommandQueueCoroutine());
 	}
 
-	private IEnumerator MoveActionQueueCoroutine()
+	private IEnumerator MoveCommandQueueCoroutine()
 	{
 		for (int i = 0; i < 3; i++)
 		{
-			MoveAction ma = _actionQueue.Peek();
-			_movementManager.Move(
-				ma.Player, 
-				ma.TargetCellPosition
-			);
-			_actionQueue.DeQueue();
+			ICommand iCommand = _commandQueue.Peek();
+			iCommand.Execute();
+			_commandQueue.Dequeue();
 			yield return new WaitForSeconds(0.3f);
 		}
 	}

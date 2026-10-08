@@ -41,17 +41,18 @@ public class SelectionInput : MonoBehaviour
                     Vector2 playerPosition = _selectionManager.SelectedPlayer.CellPosition;
                     
                     Vector2 cellPosition = _selectedCell.CellPosition;
-                    countMove++;
-                    if(_movementManager.CanMove(playerPosition, cellPosition) || countMove <= 3)
+                    
+                    if(_movementManager.CanMove(playerPosition, cellPosition) && countMove < 3)
                     {
                         
-                        MoveAction ma = new MoveAction(
+                        ICommand command = new MoveCommand(
                             _selectionManager.SelectedPlayer,
-                            _selectedCell.CellPosition
+                            _selectedCell.CellPosition,
+                            _movementManager
                         );
 
-                        _actionManager.SetMoveAction(ma);
-                        
+                        _actionManager.SetCommand(command);
+                        countMove++;
                     }
                     else
                     {
